@@ -2,7 +2,7 @@ const a = new Date()
 
 const printDate = function printDate(){
 
-    console.log('date is',a.getData())
+    console.log('date is',a.getDate())
 }
 const printMonth = function printMonth(){
 
@@ -10,8 +10,8 @@ const printMonth = function printMonth(){
 }
 const batchInfo = function batchInfo(){
 
-   console.log('uranium',''+printDate()+'/'+printDate()+''+'the topic for today is nodejs module system')
+   console.log('uranium',''+printDate()+'/'+printDate()+' '+'the topic for today is nodejs module system')
 
 }
 
-module.exports.pull = {printDate,printMonth,batchInfo}
+module.exports = {printDate,printMonth,batchInfo}
