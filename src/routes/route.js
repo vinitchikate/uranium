@@ -5,8 +5,12 @@ const info = require('../util/helper');
 
 const router = express.Router();
 
-router.get('/test-me', function (req, res) {
-    res.send('hey there fan is here')
+router.get('/test-me', function (req, res){
+
+const a = req.query.name
+console.log(a)
+
+    res.send({data:a})
    logger.login()
    
    info.printDate()
