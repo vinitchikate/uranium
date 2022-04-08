@@ -59,6 +59,16 @@ res.send(film)
 });
 
 
+
+router.get('/films/:filmid', function (req, res){
+
+    let i = req.params.filmid
+    res.send((i>0&&i<=film.length)?film[i-1]:
+    `${'invalid request:Enter a number betwn 1 to'+" "+film.length}`)//5
+    
+ });
+
+
 module.exports = router;
 // adding this comment for no reason
 
