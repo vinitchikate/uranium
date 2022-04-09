@@ -1,5 +1,9 @@
 const express = require('express');
-const movie = ['puspha','KGF','RRR','Ironman','Blackpanther','Aquaman']//1
+const movie = ['puspha','KGF','RRR','Ironman','Blackpanther','Aquaman','Joker']//1
+
+
+
+
 
 
 
@@ -18,7 +22,6 @@ router.get('/movies/:indexnumber', function (req, res){
    `${'invalid request:Enter a number betwn 1 to'+" "+movie.length}`)//3
    
 });
-
 
 
 const film = [ {
@@ -67,6 +70,54 @@ router.get('/films/:filmid', function (req, res){
     `${'invalid request:Enter a number betwn 1 to'+" "+film.length}`)//5
     
  });
+
+
+ let players =
+   [
+       {
+           "name": "manish",
+           "dob": "1/1/1995",
+           "gender": "male",
+           "city": "jalandhar",
+           "sports": [
+               "swimming"
+           ]
+       },
+       {
+           "name": "gopal",
+           "dob": "1/09/1995",
+           "gender": "male",
+           "city": "delhi",
+           "sports": [
+               "soccer"
+           ],
+       },
+       {
+           "name": "lokesh",
+           "dob": "1/1/1990",
+           "gender": "male",
+           "city": "mumbai",
+           "sports": [
+               "soccer"
+           ],
+       },
+   ]
+ 
+   router.post('/players', function (req, res) {
+    let result = true;
+ for(let i=0;i<players.length;i++)
+ {
+     if(players[i]["name"]==req.body["name"])
+     {
+      result = false
+     }
+ } 
+ if(result==true)
+ {
+     players.push(req.body)
+ }
+    res.send(  { data: players , status: result }  )
+})
 
 
 module.exports = router;
