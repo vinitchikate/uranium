@@ -4,7 +4,7 @@ const route = require('./routes/route.js');
 const { default: mongoose } = require('mongoose');
 const app = express();
 
-app.use(bodyParser.json());
+app.use(bodyParser.json());//if these line get disable then the no response from postman 
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
