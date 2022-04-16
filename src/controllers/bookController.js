@@ -2,23 +2,26 @@ const bookModel= require("../models/bookModel")
 const publisherModel = require("../models/PublisherModel")
 const authorModel = require("../models/authorModel")
 
-const createBook = async function(req,res){
-    let data = res.body
-    
-    let authorverify = await authorModel.findById({_id: data.author})
-    let publisherverify = await publisherModel.findById({_id: data.publisher})
+const createBook= async function (req, res) {
+    let data=req.body
 
-    if(authorverify){
-        if (publisherverify){
-            let saveData = await bookModel.create(data)
-            res.send({msg: saveData})
-        } else{
-            res.send({msg: "Publisher is not present"})
+
+    
+    if (data.author && data.publisher) {
+        let authIdCheck = await authorModel.exists({ _id: data.author })
+        let publIdCheck = await publisherModel.exists({ _id: data.publisher })
+        if (authIdCheck && publIdCheck) {
+            if (!await bookModel.exists(data)) {
+                let bookCreated = await bookModel.create(data)
+                res.send({ msg: bookCreated })
+            } else res.send({ msg: "Book already exists" })
         }
-    }else{
-        res.send({msg: "author is not present"})
+        else res.send("AuthorId and publisherId both or any one of these are Invalid")
     }
+    else res.send ({msg: "Author and publisher id Must be present"})
 }
+
+
 const getBooksWithDetails = async function (req, res) {
     let specificBook = await bookModel.find().populate('author','publisher')
     res.send({data: specificBook})
@@ -26,6 +29,7 @@ const getBooksWithDetails = async function (req, res) {
 }
 
 module.exports = {getBooksWithDetails,createBook}
+
 
 
 
