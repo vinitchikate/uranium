@@ -7,7 +7,7 @@ price:Number,
 ratings:Number,
  publisher:{type:ObjectId, ref: 'Publisher1'},
  author:{type:ObjectId,ref:'Author1'},
-
+ isHardCover:{type:Boolean,default:false}
 
 },
 
