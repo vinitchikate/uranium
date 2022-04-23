@@ -6,10 +6,10 @@ const userModel = require("../models/userModel");
 const createUser = async function (req, res) { 
  let data = req.body;
   if(!await userModel.exists(data)){
-  let savedData = await userModel.create(data);//1
-  res.send({msg:savedData});}
+  let savedData = await userModel.create(data);
+  return res.send({msg:savedData});}
   else{
-    res.send({status:false,msg:"The user data is already exists"})
+    return res.send({status:false,msg:"The user data is already exists"})
   }
   
 };
@@ -22,7 +22,7 @@ const loginUser = async function (req, res) {
   if (!user)
     return res.send({
       status: false,
-      msg: "username or the password is not corerct",
+      msg: "username or the password is not correct",
     });
 
   let token = jwt.sign(
@@ -31,10 +31,11 @@ const loginUser = async function (req, res) {
       batch: "Uranium",
       organisation: "FUnctionUp",
     },
-    "functionup-thorium"
+    "functionup-thorium",{ expiresIn : "30d" }
+
   );
-  res.setHeader("x-auth-token", token);
-  res.send({ status: true, data: token });
+   res.setHeader("x-auth-token", token);
+   res.send({ status: true, data: token });
 };
 
 
@@ -60,7 +61,7 @@ const getUserData = async function (req, res) {
   let user = await userModel.findById(userId);
   if (!user){
     return res.send("No such user exists");
-}
+} 
 let userData = req.body;
 let updateUser = await userModel.findOneAndUpdate({_id: userId},userData);
   res.send({ status: updateUser, data: updateUser });
